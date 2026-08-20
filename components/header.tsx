@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { Container } from "@/components/ui/container"
+import { Logo } from "@/components/logo"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { navItems, siteData } from "@/lib/site-data"
 import { cn } from "@/lib/utils"
@@ -37,12 +38,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="group flex items-center gap-2.5" aria-label={`${siteData.person.name} — home`}>
-          <span className="flex size-8 items-center justify-center rounded-lg bg-primary font-mono text-sm font-bold text-primary-foreground transition-transform duration-300 group-hover:-rotate-6">
-            {siteData.person.name.charAt(0)}
-          </span>
-          <span className="text-lg font-semibold tracking-tight text-foreground">{siteData.person.name}</span>
-        </Link>
+        <Logo />
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
           {navItems.map((item) => {

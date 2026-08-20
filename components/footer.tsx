@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Github, Linkedin, Mail } from "lucide-react"
 import { Container } from "@/components/ui/container"
+import { Logo } from "@/components/logo"
 import { navItems, siteData } from "@/lib/site-data"
 
 const socials = [
@@ -16,12 +17,7 @@ export function Footer() {
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
             <div className="max-w-sm space-y-3">
-              <Link href="/" className="flex items-center gap-2.5">
-                <span className="flex size-8 items-center justify-center rounded-lg bg-primary font-mono text-sm font-bold text-primary-foreground">
-                  {siteData.person.name.charAt(0)}
-                </span>
-                <span className="text-lg font-semibold tracking-tight text-foreground">{siteData.person.name}</span>
-              </Link>
+              <Logo />
               <p className="text-sm leading-relaxed text-muted-foreground">{siteData.person.tagline}</p>
             </div>
 
