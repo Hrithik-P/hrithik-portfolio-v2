@@ -33,7 +33,7 @@ export const navItems: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/works", label: "Work" },
-  { href: "/credentials", label: "Résumé" },
+  { href: "/credentials", label: "Resume" },
 ]
 
 export const siteData = {

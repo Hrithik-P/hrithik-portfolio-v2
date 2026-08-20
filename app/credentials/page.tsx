@@ -10,7 +10,7 @@ import { TechIcon } from "@/components/tech-icon"
 import { siteData } from "@/lib/site-data"
 
 export const metadata: Metadata = {
-  title: "Résumé",
+  title: "Resume",
   description:
     "Full background: roles at Quintet Solutions and Howin Cloud, education, certifications, and the complete frontend stack.",
   alternates: { canonical: "/credentials" },

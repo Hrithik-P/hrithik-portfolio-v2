@@ -144,7 +144,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Résumé pointer */}
+        {/* Resume pointer */}
         <Reveal className="mt-20 md:mt-28">
           <div className="surface flex flex-col items-start justify-between gap-6 p-8 sm:flex-row sm:items-center sm:p-10">
             <div className="space-y-2">
@@ -157,7 +157,7 @@ export default function AboutPage() {
               href="/credentials"
               className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
             >
-              View résumé
+              View resume
               <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </div>

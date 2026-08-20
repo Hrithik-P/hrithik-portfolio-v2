@@ -6,7 +6,7 @@ export function CredentialsCard() {
   const years = siteData.experience.length
 
   return (
-    <BentoCard href="/credentials" eyebrow="Full background" title="Résumé" bodyClassName="justify-center gap-4">
+    <BentoCard href="/credentials" eyebrow="Full background" title="Resume" bodyClassName="justify-center gap-4">
       <Image
         src="/credentials-signature.png"
         alt=""
