@@ -200,7 +200,6 @@ export default function CredentialsPage() {
                       <h3 className="font-medium text-foreground">{cert.name}</h3>
                       <p className="text-sm text-muted-foreground">{cert.issuer}</p>
                     </div>
-                    <span className="font-mono text-xs text-muted-foreground">{cert.year}</span>
                   </li>
                 ))}
               </ul>

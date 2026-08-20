@@ -123,8 +123,8 @@ export default function AboutPage() {
         {/* Services */}
         <section id="services" className="mt-20 scroll-mt-24 md:mt-28">
           <Reveal className="mb-8 max-w-2xl">
-            <p className="eyebrow mb-3">What I do</p>
-            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">Where I&rsquo;m most useful</h2>
+            <p className="eyebrow mb-3">Where I go deep</p>
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">What I work on</h2>
           </Reveal>
 
           <div className="grid gap-4 sm:grid-cols-2 md:gap-6">

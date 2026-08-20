@@ -4,7 +4,7 @@ import { siteData } from "@/lib/site-data"
 
 export function ServicesCard() {
   return (
-    <BentoCard href="/about#services" eyebrow="What I do" title="How I can help" bodyClassName="justify-center">
+    <BentoCard href="/about#services" eyebrow="Where I go deep" title="What I work on" bodyClassName="justify-center">
       <ul className="grid grid-cols-2 gap-2.5">
         {siteData.services.map((service) => (
           <li

@@ -51,7 +51,7 @@ export const siteData = {
     shortBio:
       "Frontend engineer with 4+ years building production web applications in React, Next.js, and TypeScript. I work on operational software: the kind people use all day to get a job done, where the whole task is making something genuinely complex feel simple and reliable.",
     longBio: [
-      "For the past three years I've been the frontend engineer on Lula and Foresight, a US property maintenance platform serving managers across 50+ markets. What makes it interesting is that one work order moves through four completely different people — a coordinator triaging the request, a property manager tracking progress, a contractor accepting the job, a technician finishing it in the field. Same record, four jobs to be done.",
+      "For the past three years I've worked on the frontend team behind Lula and Foresight, a US property maintenance platform used by managers across 50+ markets. What makes it interesting is that one work order moves through four completely different people — a coordinator triaging the request, a property manager tracking progress, a contractor accepting the job, a technician finishing it in the field. Same record, four jobs to be done.",
       "A lot of my work has been making those four applications behave like one product. I build and maintain the shared component library behind the admin platform, customer portal, vendor portal, and technician app, so a UI improvement ships across the suite instead of being reimplemented four times. I own the REST integration layer across them too — typed, with loading, error, and empty states that look the same everywhere, because inconsistent failure states are how software starts to feel unreliable.",
       "The most useful thing I've learned came from migrating a dozen-odd legacy Laravel dashboard pages to React and TypeScript. Writing the React was never the hard part. The hard part was working out why the existing code behaved the way it did — reading an undocumented codebase archaeologically, tracing dependencies, understanding decisions made by people who'd long since left, and judging when to preserve behaviour rather than replace it.",
       "Before Quintet I was at Howin Cloud building mobile-first client interfaces and integrating payment and authentication systems, and I started out in Laravel and backend work — which still gives me a better read on the systems sitting behind the interfaces I build. These days I also mentor two junior developers on a five-person frontend team, which has sharpened how I explain decisions rather than just make them.",
@@ -88,7 +88,8 @@ export const siteData = {
     },
   ],
 
-  certifications: [{ name: "Responsive Web Design", issuer: "freeCodeCamp", year: "2021" }],
+  // No date on this in either source — don't invent one.
+  certifications: [{ name: "Responsive Web Design", issuer: "freeCodeCamp" }],
 
   languages: [
     { name: "English", level: "Professional working" },
@@ -112,35 +113,45 @@ export const siteData = {
     linkedin: "https://www.linkedin.com/in/hrithik-p",
   },
 
+  /**
+   * Kept to things that are his own, not the employer's. Platform scale
+   * (50+ markets, 25-person org) belongs in the project copy as context,
+   * not on the homepage as a personal metric.
+   */
   stats: [
     { value: "4+", label: "Years shipping", detail: "production frontends" },
-    { value: "50+", label: "US markets", detail: "served by the platform" },
-    { value: "4", label: "Apps in the suite", detail: "one shared component library" },
+    { value: "4", label: "Products shipped", detail: "PropTech to commerce" },
+    { value: "2", label: "Companies", detail: "product & agency teams" },
   ],
 
+  /**
+   * Areas of depth, not an offering. He's looking for a senior frontend
+   * role, so framing these as services for hire misreads the audience —
+   * and turns individual pieces of work into business lines.
+   */
   services: [
     {
-      name: "Frontend architecture",
+      name: "Component systems",
       description:
-        "State boundaries, data-fetching patterns, and folder structure decided deliberately — so feature five doesn't cost four times feature one.",
-      icon: "lucide:blocks",
-    },
-    {
-      name: "React & TypeScript builds",
-      description:
-        "Production interfaces end to end, from design handoff and API contract through review, tests, and release.",
-      icon: "lucide:code-xml",
-    },
-    {
-      name: "Design systems",
-      description:
-        "Shared component libraries and tokens that keep a multi-application product suite looking and behaving like one product.",
+        "The part I've spent most time on: one shared library behind four applications, so a change lands everywhere instead of four times.",
       icon: "lucide:component",
     },
     {
-      name: "Legacy modernisation",
+      name: "State & data flow",
       description:
-        "Moving server-rendered screens onto a typed, component-driven frontend without losing the product logic buried in them.",
+        "Where state lives, where the network edge sits, and what a typed fetching layer should hand a component. Most UI pain starts here.",
+      icon: "lucide:blocks",
+    },
+    {
+      name: "Untangling old code",
+      description:
+        "Working out why a system behaves the way it does before changing it — the slow half of every migration, and the half that decides whether it works.",
+      icon: "lucide:git-branch",
+    },
+    {
+      name: "Dense operational UI",
+      description:
+        "Scheduling, dispatch, work queues. Screens with a lot on them that still have to feel calm to someone using them all day.",
       icon: "lucide:activity",
     },
   ],
@@ -152,15 +163,15 @@ export const siteData = {
       company: "Quintet Solutions Pvt Ltd",
       location: "Kochi, India",
       description:
-        "Dedicated frontend engineer on Lula and Foresight, a US property maintenance and AI work-order platform serving managers across 50+ markets. Frontend team of five inside a 25-person engineering organisation, working from requirements analysis through to production support.",
+        "Frontend engineer on Lula and Foresight, a US property maintenance and AI work-order platform used by managers across 50+ markets. One of five on the frontend team inside a 25-person engineering group.",
       achievements: [
-        "Built and maintained the shared component library powering four production applications — admin platform, customer portal, vendor portal, and technician app — establishing one design language across the suite and removing four-way duplicate implementation of every shared pattern",
-        "Migrated 12–15 legacy Laravel dashboard pages to a modular React and TypeScript architecture, reverse-engineering years of undocumented product logic through code analysis and stakeholder interviews before rewriting",
-        "Cut page load times and removed UI hangs on data-heavy views, measurably increasing use of screens people had been avoiding",
-        "Reduced time-to-production for new features from weeks to days by replacing the server-rendered architecture with a typed, component-driven frontend",
-        "Delivered the frontend for Foresight's AI-driven work-order platform — request triage, technician scheduling, and vendor dispatch used daily by coordinators",
-        "Owned REST integration across the four client applications, partnering with backend engineers on contract design and implementing typed data-fetching layers with consistent loading, error, and empty states",
-        "Mentor two junior developers, helping them get confident owning and shipping features independently",
+        "Build and maintain the shared component library behind four production apps — admin platform, customer portal, vendor portal, and technician app — so shared UI ships once instead of four times",
+        "Migrated 12–15 legacy Laravel dashboard pages to typed React, recovering undocumented behaviour through code reading and stakeholder interviews before rewriting any of it",
+        "Cut page loads and removed hangs on data-heavy views; screens people had been quietly avoiding started getting used",
+        "Feature turnaround went from weeks to days once those screens became typed components",
+        "Built Foresight's AI work-order frontend: request triage, technician scheduling, and vendor dispatch, used daily by coordinators",
+        "Own REST integration across the four apps — shaping contracts with backend engineers, and keeping loading, error, and empty states identical throughout",
+        "Mentor two junior developers on the frontend team",
       ],
       tech: ["React", "TypeScript", "Next.js", "Redux Toolkit", "TanStack Query", "Vite", "Vitest", "React Testing Library", "REST APIs", "Sentry", "Datadog"],
     },
@@ -170,12 +181,12 @@ export const siteData = {
       company: "Howin Cloud Pvt Ltd",
       location: "Perintalmanna, India",
       description:
-        "Client web and mobile applications across the stack — React on the front, Laravel and MySQL behind it — covering requirements analysis, API integration, testing, and production support.",
+        "Client web and mobile work across the stack — React on the front, Laravel and MySQL behind it — from requirements through integration, testing, and production support.",
       achievements: [
-        "Rebuilt client-facing interfaces on a mobile-first responsive architecture, improving usability and session quality through fluid layouts, optimised media loading, and touch-appropriate interaction patterns",
-        "Built a reusable React component library shared across concurrent client projects, cutting per-project reimplementation and improving consistency across the agency's delivery portfolio",
-        "Integrated payment gateway and third-party authentication providers into production applications, with secure token handling, webhook listeners, and structured error states for failed transactions",
-        "Established a manual cross-browser test matrix across Chrome, Safari, Firefox, and Edge on desktop and mobile, catching rendering and layout defects before client release",
+        "Rebuilt client interfaces mobile-first: fluid layouts, lighter media loading, and touch-appropriate interactions",
+        "Built a reusable React component library shared across concurrent client projects, so common patterns stopped being rewritten per engagement",
+        "Integrated payment gateways and third-party auth, with secure token handling, webhook listeners, and real error states for failed transactions",
+        "Set up a manual cross-browser matrix — Chrome, Safari, Firefox, Edge, desktop and mobile — that caught layout defects before client release",
       ],
       tech: ["React", "JavaScript", "Laravel", "Eloquent", "MySQL", "REST APIs", "PWA"],
     },
@@ -185,11 +196,11 @@ export const siteData = {
       company: "Howin Cloud Pvt Ltd",
       location: "Perintalmanna, India",
       description:
-        "First production codebase — a CMS and e-commerce work in Laravel and React, spanning frontend, APIs, and relational data.",
+        "First production codebase — Laravel, MySQL, and React across a CMS and an e-commerce build.",
       achievements: [
-        "Delivered a production CMS in Laravel within a 12-week internship, supporting role-based access control and custom content types",
-        "Architected the relational schema behind dynamic content and admin operations, mapping content relationships and access rules before implementation",
-        "Structured backend logic on MVC principles and contributed to product, authentication, CRUD, and shopping-cart workflows",
+        "Shipped a production CMS in Laravel inside a 12-week internship, with role-based access and custom content types",
+        "Designed the relational schema behind dynamic content and admin operations before building on top of it",
+        "Worked on product, authentication, CRUD, and cart flows, with senior review on every change",
       ],
       tech: ["Laravel", "MySQL", "React", "PHP"],
     },
@@ -313,7 +324,7 @@ export const siteData = {
       title: "Class Report",
       category: "SaaS · EdTech",
       year: "2022 — 2023",
-      role: "Full-Stack Developer",
+      role: "React & Laravel APIs",
       hue: 200,
       monogram: "CR",
       summary: "One academic record, three audiences — administrators, teachers, and parents each see their own slice.",
@@ -341,7 +352,7 @@ export const siteData = {
       title: "Hadiya Alumni Platform",
       category: "Admin Platform",
       year: "2022",
-      role: "Full-Stack Developer",
+      role: "React & Laravel APIs",
       hue: 155,
       monogram: "HD",
       summary: "Membership, events, and fees for an association of 4,000+ alumni.",
@@ -367,24 +378,23 @@ export const siteData = {
     {
       id: "4",
       slug: "grosav-commerce",
-      title: "Grosav Commerce",
+      title: "Grosav",
       category: "E-Commerce",
       year: "2022",
-      role: "Frontend Developer",
+      role: "Frontend",
       hue: 25,
       monogram: "GR",
-      summary: "Storefront, cart, and checkout rebuilt mobile-first — on the phones customers actually use.",
+      summary: "An ordering storefront built for mid-range phones, not for the demo laptop.",
       problem:
-        "Ordering happens on mid-range phones over patchy mobile data, and the existing interface had been designed desktop-first. Every extra second between menu and checkout is an abandoned order.",
+        "Customers order on mid-range phones over patchy mobile data. Anything between the menu and a completed order — a heavy image, a janky scroll, a payment failure with no explanation — is where the order gets abandoned.",
       approach:
-        "Rebuilt the client-facing interface on a mobile-first responsive architecture — fluid layouts, optimised media loading, and touch-appropriate interaction patterns. Integrated the payment gateway and third-party authentication with secure token handling, webhook listeners, and structured error states for failed transactions.",
+        "Built the storefront, cart, and checkout mobile-first: fluid layouts, lighter media loading, and touch-appropriate interactions. Integrated payment and authentication providers with secure token handling, and gave failed transactions real error states rather than a dead end.",
       outcome:
-        "A checkout path that holds together on real devices, with failed payments surfacing as something a customer can act on rather than a dead end.",
+        "A checkout path that holds up on the hardware customers actually carry, with failures that tell someone what to do next.",
       highlights: [
-        "Mobile-first rebuild improving usability and session quality",
-        "Payment gateway and third-party auth with secure token handling",
-        "Structured error states for failed transactions",
-        "Manual cross-browser matrix across Chrome, Safari, Firefox, and Edge",
+        "Mobile-first storefront, cart, and checkout",
+        "Payment and third-party auth integration with secure token handling",
+        "Error states that make a failed transaction recoverable",
       ],
       technologies: [
         { name: "React", icon: "logos:react" },
