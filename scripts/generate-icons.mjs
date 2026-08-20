@@ -17,25 +17,39 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 
 /** Icons referenced from lib/site-data.ts, as `collection:name`. */
 const WANTED = [
+  // Frontend
   "logos:react",
+  "logos:nextjs-icon",
   "logos:typescript-icon",
   "logos:javascript",
-  "logos:nextjs-icon",
   "logos:redux",
   "logos:react-query-icon",
-  "logos:tailwindcss-icon",
-  "logos:sass",
-  "logos:framer",
-  "logos:figma",
-  "logos:playwright",
-  "logos:testing-library",
   "logos:vitejs",
-  "logos:git-icon",
-  "logos:docker-icon",
+  "logos:testing-library",
+  "logos:playwright",
+  "logos:html-5",
+  "logos:css-3",
+  "logos:tailwindcss-icon",
+  "logos:bootstrap",
+  // Backend
+  "logos:nodejs-icon",
+  "logos:nestjs",
   "logos:laravel",
   "logos:mysql-icon",
+  "logos:postgresql",
+  "logos:prisma",
   "logos:php",
-  "simple-icons:reacthookform",
+  // Tools
+  "logos:git-icon",
+  "logos:docker-icon",
+  "logos:postman-icon",
+  "logos:sentry-icon",
+  "logos:visual-studio-code",
+  "logos:claude-icon",
+  "logos:openai-icon",
+  // No `logos:cursor` in the collection; simple-icons is monochrome and
+  // inherits currentColor, which is fine for a wordless mark.
+  "simple-icons:cursor",
 ]
 
 const collections = new Map()

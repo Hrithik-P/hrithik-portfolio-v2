@@ -205,40 +205,47 @@ export const siteData = {
   /** Grouped rather than scored — percentages on a skill are noise. */
   skillGroups: [
     {
-      title: "Core",
+      title: "Frontend",
       items: [
-        { name: "React", icon: "logos:react" },
-        { name: "TypeScript", icon: "logos:typescript-icon" },
-        { name: "JavaScript", icon: "logos:javascript" },
+        { name: "React.js", icon: "logos:react" },
         { name: "Next.js", icon: "logos:nextjs-icon" },
-      ],
-    },
-    {
-      title: "State & data",
-      items: [
+        { name: "TypeScript", icon: "logos:typescript-icon" },
+        { name: "JavaScript (ES6+)", icon: "logos:javascript" },
         { name: "Redux Toolkit", icon: "logos:redux" },
-        { name: "TanStack Query", icon: "logos:react-query-icon" },
-        { name: "REST APIs", icon: "lucide:webhook" },
-        { name: "React Hook Form", icon: "simple-icons:reacthookform" },
-      ],
-    },
-    {
-      title: "Styling",
-      items: [
-        { name: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
-        { name: "CSS / Sass", icon: "logos:sass" },
-        { name: "Framer Motion", icon: "logos:framer" },
-        { name: "Figma", icon: "logos:figma" },
-      ],
-    },
-    {
-      title: "Testing & tooling",
-      items: [
-        { name: "Playwright", icon: "logos:playwright" },
-        { name: "Testing Library", icon: "logos:testing-library" },
+        { name: "React Query", icon: "logos:react-query-icon" },
         { name: "Vite", icon: "logos:vitejs" },
+        { name: "React Testing Library", icon: "logos:testing-library" },
+        { name: "Playwright", icon: "logos:playwright" },
+        { name: "HTML5", icon: "logos:html-5" },
+        { name: "CSS3", icon: "logos:css-3" },
+        { name: "Tailwind", icon: "logos:tailwindcss-icon" },
+        { name: "Bootstrap", icon: "logos:bootstrap" },
+      ],
+    },
+    {
+      title: "Backend",
+      items: [
+        { name: "Node.js", icon: "logos:nodejs-icon" },
+        { name: "NestJS", icon: "logos:nestjs" },
+        { name: "Laravel", icon: "logos:laravel" },
+        { name: "MySQL", icon: "logos:mysql-icon" },
+        { name: "PostgreSQL", icon: "logos:postgresql" },
+        { name: "REST APIs", icon: "lucide:webhook" },
+        { name: "Prisma", icon: "logos:prisma" },
+      ],
+    },
+    {
+      title: "Tools",
+      items: [
         { name: "Git", icon: "logos:git-icon" },
         { name: "Docker", icon: "logos:docker-icon" },
+        { name: "Postman", icon: "logos:postman-icon" },
+        { name: "Sentry", icon: "logos:sentry-icon" },
+        { name: "VS Code", icon: "logos:visual-studio-code" },
+        { name: "CI/CD", icon: "lucide:infinity" },
+        { name: "Claude Code", icon: "logos:claude-icon" },
+        { name: "ChatGPT", icon: "logos:openai-icon" },
+        { name: "Cursor", icon: "simple-icons:cursor" },
       ],
     },
   ],
@@ -248,6 +255,7 @@ export const siteData = {
     { label: "React", icon: "logos:react" },
     { label: "TypeScript", icon: "logos:typescript-icon" },
     { label: "Next.js", icon: "logos:nextjs-icon" },
+    { label: "Node.js", icon: "logos:nodejs-icon" },
     { label: "JavaScript", icon: "logos:javascript" },
     { label: "Redux", icon: "logos:redux" },
     { label: "Tailwind CSS", icon: "logos:tailwindcss-icon" },

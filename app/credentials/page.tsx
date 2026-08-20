@@ -133,7 +133,9 @@ export default function CredentialsPage() {
 
             <Reveal as="section">
               <SectionHeading>Stack</SectionHeading>
-              <div className="grid gap-4 sm:grid-cols-2">
+              {/* Stacked rather than a 2-up grid: the groups differ enough in
+                  length that columns leave a ragged gap. */}
+              <div className="space-y-4">
                 {skillGroups.map((group) => (
                   <div key={group.title} className="surface p-5 sm:p-6">
                     <h3 className="eyebrow mb-4">{group.title}</h3>
