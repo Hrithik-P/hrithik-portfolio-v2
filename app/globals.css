@@ -1,83 +1,70 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* Light theme (default). The `.dark` block below only overrides what changes. */
 :root {
-  /* Custom dark portfolio theme with deep blacks and blue accents */
-  --background: oklch(0.087 0 0); /* #0b0b0b - deep black */
-  --foreground: oklch(0.95 0 0); /* near white */
-  --card: oklch(0.15 0 0); /* dark gray cards */
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.15 0 0);
-  --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.65 0.22 264); /* vibrant blue */
-  --primary-foreground: oklch(0.95 0 0);
-  --secondary: oklch(0.2 0 0);
-  --secondary-foreground: oklch(0.95 0 0);
-  --muted: oklch(0.25 0 0);
-  --muted-foreground: oklch(0.55 0 0); /* muted gray for secondary text */
-  --accent: oklch(0.65 0.22 264); /* blue accent */
-  --accent-foreground: oklch(0.95 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.95 0 0);
-  --border: oklch(0.25 0 0); /* subtle borders */
-  --input: oklch(0.25 0 0);
-  --ring: oklch(0.65 0.22 264);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 1.25rem; /* 20px - larger radius for modern feel */
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: oklch(0.985 0.003 275);
+  --foreground: oklch(0.22 0.018 275);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.52 0.21 268);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.955 0.006 275);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.955 0.006 275);
+  --muted-foreground: oklch(0.45 0.014 275);
+  --accent: oklch(0.62 0.16 200);
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.905 0.007 275);
+  /* Deliberately darker than --border: a form control's boundary needs 3:1
+     against its backdrop (WCAG 1.4.11), while a card hairline does not. */
+  --input: oklch(0.58 0.015 275);
+  --ring: var(--primary);
+
+  --radius: 1.25rem;
+
+  /* Surfaces: the glass edge + ambient wash used by every bento card. */
+  --surface-highlight: oklch(1 0 0 / 0.9);
+  --surface-shadow: 0 1px 2px oklch(0.22 0.018 275 / 0.05), 0 12px 32px -12px oklch(0.22 0.018 275 / 0.12);
+  --surface-shadow-hover: 0 1px 2px oklch(0.22 0.018 275 / 0.06), 0 24px 48px -16px oklch(0.52 0.21 268 / 0.22);
+  --grid-line: oklch(0.22 0.018 275 / 0.045);
+  --glow-primary: oklch(0.52 0.21 268 / 0.1);
+  --glow-accent: oklch(0.62 0.16 200 / 0.08);
 }
 
 .dark {
-  --background: oklch(0.087 0 0);
-  --foreground: oklch(0.95 0 0);
-  --card: oklch(0.15 0 0);
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.15 0 0);
-  --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.65 0.22 264);
-  --primary-foreground: oklch(0.95 0 0);
-  --secondary: oklch(0.2 0 0);
-  --secondary-foreground: oklch(0.95 0 0);
-  --muted: oklch(0.25 0 0);
-  --muted-foreground: oklch(0.55 0 0);
-  --accent: oklch(0.65 0.22 264);
-  --accent-foreground: oklch(0.95 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.95 0 0);
-  --border: oklch(0.25 0 0);
-  --input: oklch(0.25 0 0);
-  --ring: oklch(0.65 0.22 264);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  --background: oklch(0.135 0.012 270);
+  --foreground: oklch(0.96 0.004 275);
+  --card: oklch(0.175 0.013 272);
+  --popover: oklch(0.185 0.013 272);
+  --primary: oklch(0.68 0.19 268);
+  --primary-foreground: oklch(0.13 0.012 270);
+  --secondary: oklch(0.225 0.013 272);
+  --muted: oklch(0.235 0.013 272);
+  --muted-foreground: oklch(0.7 0.016 275);
+  --accent: oklch(0.75 0.14 200);
+  --accent-foreground: oklch(0.13 0.012 270);
+  --destructive: oklch(0.62 0.2 27);
+  --border: oklch(0.29 0.013 272);
+  --input: oklch(0.5 0.015 272);
+
+  --surface-highlight: oklch(1 0 0 / 0.07);
+  --surface-shadow: 0 1px 2px oklch(0 0 0 / 0.4), 0 12px 32px -12px oklch(0 0 0 / 0.6);
+  --surface-shadow-hover: 0 1px 2px oklch(0 0 0 / 0.4), 0 24px 48px -16px oklch(0.68 0.19 268 / 0.28);
+  --grid-line: oklch(1 0 0 / 0.035);
+  --glow-primary: oklch(0.68 0.19 268 / 0.16);
+  --glow-accent: oklch(0.75 0.14 200 / 0.1);
 }
 
 @theme inline {
-  --font-sans: var(--font-sans-app), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono-app), "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-app), ui-monospace, monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -97,38 +84,60 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
+    @apply border-border;
   }
 
-  /* Hide scrollbar across all browsers */
-  /* Webkit browsers (Chrome, Safari, Edge) */
+  html {
+    scroll-behavior: smooth;
+    /* Header is sticky at 4rem; keep anchor targets clear of it. */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-balance;
+    letter-spacing: -0.02em;
+  }
+
+  /* One consistent focus ring everywhere, instead of per-component rings. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  /* Slim, themed scrollbar. The previous rules hid it entirely, which removes
+     the only cue for scroll position on long pages. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
   ::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
+    width: 10px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
@@ -136,17 +145,207 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: transparent;
+    background: var(--border);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
   }
 
-  /* Firefox */
-  * {
-    scrollbar-width: none;
-  }
-
-  /* IE and Edge legacy */
-  * {
-    -ms-overflow-style: none;
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
+    background-clip: content-box;
   }
 }
 
+@layer components {
+  /* Shared shell for every bento/content card: hairline border, ambient
+     shadow, and a 1px top highlight that reads as a lit glass edge. */
+  .surface {
+    position: relative;
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--surface-shadow);
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding-top: 1px;
+    background: linear-gradient(to bottom, var(--surface-highlight), transparent 60%);
+    /* Masks out the content box so only the 1px padding strip paints. Both the
+       prefixed and standard forms are needed: without the unprefixed `mask`,
+       Firefox skips the mask and washes the whole card instead. */
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .surface-interactive:hover {
+    border-color: color-mix(in oklab, var(--primary) 45%, var(--border));
+    box-shadow: var(--surface-shadow-hover);
+    transform: translateY(-3px);
+  }
+
+  .surface-interactive:has(:focus-visible) {
+    border-color: var(--primary);
+    box-shadow: var(--surface-shadow-hover);
+  }
+
+  /* Ambient page wash: two soft colour pools behind a faint technical grid. */
+  .page-ambient {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(60rem 40rem at 15% -10%, var(--glow-primary), transparent 60%),
+      radial-gradient(50rem 35rem at 90% 5%, var(--glow-accent), transparent 60%);
+  }
+
+  .page-ambient::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 4rem 4rem;
+    mask-image: radial-gradient(70rem 50rem at 50% 0%, #000, transparent 75%);
+  }
+
+  /* Native <dialog> modal: centred, with enter/exit transitions driven by
+     [open] plus @starting-style. `allow-discrete` is what lets the closing
+     transition run before `display` flips back to none. */
+  .project-dialog {
+    margin: auto;
+    max-height: 90vh;
+    padding: 0;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      overlay 0.25s ease allow-discrete,
+      display 0.25s ease allow-discrete;
+  }
+
+  .project-dialog[open] {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  @starting-style {
+    .project-dialog[open] {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+  }
+
+  .project-dialog::backdrop {
+    background: color-mix(in oklab, var(--background) 78%, transparent);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transition:
+      opacity 0.25s ease,
+      overlay 0.25s ease allow-discrete,
+      display 0.25s ease allow-discrete;
+  }
+
+  .project-dialog[open]::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    .project-dialog[open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  /* Entrance animation. `both` holds the from-state through the delay, so
+     staggered items don't flash in before their turn. */
+  .reveal {
+    animation: reveal-in 0.55s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+    animation-delay: var(--reveal-delay, 0s);
+  }
+
+  @keyframes reveal-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      110deg,
+      var(--foreground) 10%,
+      color-mix(in oklab, var(--primary) 70%, var(--foreground)) 55%,
+      var(--foreground) 90%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground;
+  }
+
+  /* Marquee: CSS-driven so it stays on the compositor and stops for
+     reduced-motion users. Track holds two identical copies. */
+  .marquee-track {
+    animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
+  }
+
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    /* Also zero the delay: with `animation-fill-mode: both`, a surviving
+       delay would leave staggered items invisible for its duration. */
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .surface-interactive:hover {
+    transform: none;
+  }
+}

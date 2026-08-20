@@ -1,47 +1,128 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { siteData } from "@/lib/site-data"
 import { usePathname } from "next/navigation"
+import { Menu, X } from "lucide-react"
+import { Container } from "@/components/ui/container"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { navItems, siteData } from "@/lib/site-data"
+import { cn } from "@/lib/utils"
 
 export function Header() {
   const pathname = usePathname()
-  const navItems = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/works", label: "Works" },
-    { href: "/contact", label: "Contact" },
-  ]
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  // The panel closes from the link handlers below rather than a pathname
+  // effect — no cascading render, and it also covers same-page links.
+  const closeMenu = () => setMenuOpen(false)
+
+  useEffect(() => {
+    if (!menuOpen) return
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false)
+    }
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    window.addEventListener("keydown", onKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener("keydown", onKeyDown)
+    }
+  }, [menuOpen])
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto max-w-[1140px] flex h-16 items-center justify-between px-4 sm:px-6 md:px-8">
-        <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xl sm:text-2xl font-bold text-foreground">{siteData.person.name}</span>
+    <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
+      <Container className="flex h-16 items-center justify-between gap-4">
+        <Link href="/" className="group flex items-center gap-2.5" aria-label={`${siteData.person.name} — home`}>
+          <span className="flex size-8 items-center justify-center rounded-lg bg-primary font-mono text-sm font-bold text-primary-foreground transition-transform duration-300 group-hover:-rotate-6">
+            {siteData.person.name.charAt(0)}
+          </span>
+          <span className="text-lg font-semibold tracking-tight text-foreground">{siteData.person.name}</span>
         </Link>
 
-        <nav className="hidden sm:flex items-center gap-4 md:gap-8">
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
           {navItems.map((item) => {
-            const isActive = pathname === item.href
+            const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
 
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isActive ? "text-foreground" : "text-muted-foreground"
-                }`}
+                aria-current={isActive ? "page" : undefined}
+                className={cn(
+                  "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                  isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+                )}
               >
-                {item.label}
+                {isActive && <span className="absolute inset-0 rounded-full bg-muted" />}
+                <span className="relative">{item.label}</span>
               </Link>
             )
           })}
         </nav>
 
-        <Button asChild className="bg-muted hover:bg-muted/80 text-foreground rounded-full px-4 sm:px-6 text-sm">
-          <Link href="/contact">Say hello</Link>
-        </Button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+
+          <Link
+            href="/contact"
+            className="hidden rounded-full bg-foreground px-5 py-2 text-sm font-medium text-background transition-colors hover:bg-foreground/90 sm:inline-flex"
+          >
+            Let&rsquo;s talk
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            className="flex size-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground md:hidden"
+          >
+            {menuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
+          </button>
+        </div>
+      </Container>
+
+      {/* Mobile navigation — the previous header hid the nav below `sm` with
+          no replacement, leaving small screens with no way to navigate. */}
+      <div
+        id="mobile-nav"
+        hidden={!menuOpen}
+        className="border-t border-border/60 bg-background/95 backdrop-blur-xl md:hidden"
+      >
+        <Container className="flex flex-col gap-1 py-4">
+          {navItems.map((item) => {
+            const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={closeMenu}
+                aria-current={isActive ? "page" : undefined}
+                className={cn(
+                  "rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                  isActive ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+                )}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
+
+          <Link
+            href="/contact"
+            onClick={closeMenu}
+            className="mt-2 rounded-xl bg-foreground px-4 py-3 text-center text-base font-medium text-background"
+          >
+            Let&rsquo;s talk
+          </Link>
+        </Container>
       </div>
     </header>
   )

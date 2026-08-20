@@ -1,192 +1,376 @@
 export interface PortfolioProject {
   id: string
+  slug: string
   title: string
   category: string
-  thumbnail: string
+  year: string
+  role: string
+  /** Hue (0-360) driving the generated cover art. */
+  hue: number
+  monogram: string
   summary: string
-  description: string
-  images: string[]
+  problem: string
+  approach: string
+  outcome: string
+  highlights: string[]
   technologies: { name: string; icon: string }[]
   href?: string
 }
 
+export interface NavItem {
+  href: string
+  label: string
+}
+
+/**
+ * Absolute origin, used for canonical URLs, Open Graph tags, and the sitemap.
+ * Set NEXT_PUBLIC_SITE_URL in the deploy environment; the fallback only keeps
+ * local builds working.
+ */
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+
+export const navItems: NavItem[] = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/works", label: "Work" },
+  { href: "/credentials", label: "Résumé" },
+]
+
 export const siteData = {
   person: {
     name: "Hrithik",
-    role: "Frontend Engineer (React)",
+    fullName: "Hrithik P",
+    role: "Frontend Engineer",
+    roleLong: "Frontend Engineer · React & TypeScript",
     location: "Kochi, India",
     email: "hrithik00g@gmail.com",
     phone: "+91 9061006921",
     username: "@hrithik-p",
+    availability: "Open to full-time & contract work",
     heroIntro:
-      "I turn ideas into interfaces people love—clean, fast, and built to last. Glad you're here.",
+      "I build the parts of a product people actually touch — fast interfaces, honest states, and component systems that stay sane after the third redesign.",
     shortBio:
-      "Frontend Engineer with 3+ years building scalable web apps in React and TypeScript. I care about clean code, fast experiences, and teams that ship with confidence.",
+      "Frontend engineer with 3+ years in React and TypeScript, shipping production web apps for property, education, and commerce teams. I care about the boring things that make products good: predictable state, real loading and error states, and code the next person can read.",
     longBio: [
-      "I'm a Frontend Engineer who loves building products that feel great and scale. I focus on clean architecture, reusable component systems, and performance so that teams can ship fast and users get a smooth experience.",
-      "I work with React, TypeScript, and modern tooling end to end—from design handoffs and API contracts to testing, review, and deployment. I've led frontend ownership on high-traffic platforms, raised test coverage significantly, and collaborated with backend and design teams to ship on time. Seeing fewer bugs in production and happier users is what keeps me going.",
-      "I'm based in Kochi, India, and I'm open to full-time and contract opportunities where I can contribute to product-focused or growth-driven teams. I'd love to hear about your product or what you're building.",
+      "I'm a frontend engineer based in Kochi. Most of my work has been on products that people use every day at their jobs — maintenance dashboards, school portals, ordering flows — where the interesting problems aren't visual flourishes but keeping a large interface fast, consistent, and easy to change.",
+      "Day to day that means React and TypeScript, but the part I actually enjoy is the layer underneath: deciding where state lives, drawing clean boundaries between UI and data fetching, and building component primitives that make the next twenty screens cheap to build instead of expensive. I've spent enough time in codebases where every feature costs more than the last one to know it's worth getting right early.",
+      "I work close to the people around me — pairing with backend engineers on API shapes before they're built rather than patching around them afterwards, and going back to designers when a layout won't survive real data. I also push hard on tests, because a suite you trust is what lets you refactor without asking permission.",
+      "Right now I'm open to full-time and contract roles, ideally on a product team that ships often and cares how it feels to use. If you're building something in that shape, I'd like to hear about it.",
     ],
-    tagline: "Frontend Engineer · React & TypeScript · Building products that scale and feel great",
+    tagline: "Frontend engineer building fast, durable interfaces in React and TypeScript.",
   },
-  certifications: [
-    { name: "Responsive Web Design", issuer: "freeCodeCamp" },
+
+  /** How I work — used on the home bento and the about page. */
+  principles: [
+    {
+      title: "Boundaries before features",
+      description:
+        "Decide where state lives and where the network edge sits first. Most frontend pain is a data-flow problem wearing a UI costume.",
+      icon: "lucide:git-branch",
+    },
+    {
+      title: "Design for the ugly states",
+      description:
+        "Empty, loading, error, and 400-characters-of-user-input. The happy path is the easy 20% and rarely what breaks in production.",
+      icon: "lucide:layers",
+    },
+    {
+      title: "Fast is a feature",
+      description:
+        "Ship less JavaScript, render on the server where it's free, and measure with real numbers instead of trusting a fast laptop.",
+      icon: "lucide:gauge",
+    },
+    {
+      title: "Tests you can trust",
+      description:
+        "Coverage that mirrors how people actually use the screen, so refactoring is a normal Tuesday instead of a risk to negotiate.",
+      icon: "lucide:shield-check",
+    },
   ],
+
+  certifications: [{ name: "Responsive Web Design", issuer: "freeCodeCamp", year: "2021" }],
+
   focusAreas: [
-    "Clean architecture & design systems",
-    "Performance & Core Web Vitals",
-    "Testing & quality (RTL, Playwright)",
-    "REST API integration & state management",
+    "Component architecture & design systems",
+    "Core Web Vitals & bundle budgets",
+    "Testing with RTL and Playwright",
+    "REST integration & client state",
+    "Accessibility & keyboard support",
+    "Design-to-code fidelity",
   ],
+
   social: {
-    website: "https://github.com/hrithik-p",
-    x: "https://www.linkedin.com/in/hrithik-p",
-    instagram: "https://github.com/hrithik-p",
-    dribbble: "https://www.linkedin.com/in/hrithik-p",
     github: "https://github.com/hrithik-p",
     linkedin: "https://www.linkedin.com/in/hrithik-p",
   },
-  stats: {
-    yearsExperience: 3,
-    clientsWorldwide: 4,
-    totalProjects: 4,
-  },
+
+  stats: [
+    { value: "3+", label: "Years shipping", detail: "production frontends" },
+    { value: "4", label: "Products live", detail: "across three domains" },
+    { value: "2", label: "Companies", detail: "product & agency teams" },
+  ],
+
   services: [
     {
-      name: "Frontend Architecture",
-      description: "Scalable structure, design systems, and clean patterns so your team can iterate without tech debt—and your app stays maintainable as it grows.",
+      name: "Frontend architecture",
+      description:
+        "Folder structure, state boundaries, and data-fetching patterns decided deliberately — so feature five doesn't cost four times feature one.",
+      icon: "lucide:blocks",
     },
     {
-      name: "React & TypeScript Development",
-      description: "Production-ready UIs with React and TypeScript so users get a fast, reliable experience—from prototypes to long-term ownership.",
+      name: "React & TypeScript builds",
+      description:
+        "Production interfaces built end to end, from design handoff and API contract through review, tests, and release.",
+      icon: "lucide:code-xml",
     },
     {
-      name: "UI Components & Design Systems",
-      description: "Reusable, accessible components and consistent design tokens so your product looks and behaves as one—and your team ships faster.",
+      name: "Design systems",
+      description:
+        "Accessible, themeable component primitives and tokens, so a growing product still looks like one product.",
+      icon: "lucide:component",
     },
     {
-      name: "Performance & Quality",
-      description: "Faster load times, smooth interactions, and higher test coverage so your releases are confident and your users don't wait.",
+      name: "Performance & quality",
+      description:
+        "Bundle and rendering audits, Core Web Vitals work, and test coverage that makes releases uneventful.",
+      icon: "lucide:activity",
     },
   ],
+
   experience: [
     {
-      period: "Jun 2023 – Present",
+      period: "Jun 2023 — Present",
       role: "Software Developer",
       company: "Quintet Solutions Pvt Ltd",
       location: "Kochi, India",
       description:
-        "Building and maintaining high-traffic, scalable web and mobile platforms for global markets. I implement scalable UI features with React and TypeScript, collaborate with backend teams on REST API design and integration, and drive quality through structured component architecture and code review. Increased test coverage by 30%, so we ship with fewer regressions and users get a more reliable product.",
-      tech: "React, TypeScript, React Testing Library, REST APIs, Vite, Playwright, Docker",
+        "Frontend ownership on high-traffic web and mobile platforms serving global markets. I build feature areas in React and TypeScript, shape REST contracts with the backend team before implementation rather than adapting to them after, and keep the component layer coherent as the surface area grows.",
+      achievements: [
+        "Raised test coverage by 30%, cutting the regressions that reached release",
+        "Restructured shared components into reusable primitives used across feature teams",
+        "Reviewed frontend PRs as the default reviewer, keeping patterns consistent across contributors",
+      ],
+      tech: ["React", "TypeScript", "React Testing Library", "Playwright", "Vite", "REST APIs", "Docker"],
     },
     {
-      period: "Apr 2022 – May 2023",
+      period: "Apr 2022 — May 2023",
       role: "Junior Software Developer",
       company: "Howin Cloud Pvt Ltd",
       location: "Perintalmanna, India",
       description:
-        "Built custom e-commerce web applications for multiple clients so they could sell and manage orders reliably. Delivered frontend features in React and contributed to backend modules with Laravel and MySQL. Integrated REST APIs and optimized data workflows for better performance. Reduced production issues through improved debugging, testing, and deployment checks; worked closely with senior developers and product owners on UI/UX and feature planning.",
-      tech: "React, JavaScript, Laravel, Vite, MySQL, REST APIs",
+        "Built custom e-commerce applications for multiple clients, working across the stack. Frontend features in React, backend modules in Laravel and MySQL, and the integration work in between — auth, orders, and payment flows that had to hold up under real traffic.",
+      achievements: [
+        "Delivered storefront and order-management features for several client launches",
+        "Cut production issues by tightening debugging, testing, and pre-deploy checks",
+        "Optimised data workflows and query patterns behind slow listing pages",
+      ],
+      tech: ["React", "JavaScript", "Laravel", "MySQL", "Vite", "REST APIs"],
     },
     {
-      period: "Jan 2022 – Mar 2022",
+      period: "Jan 2022 — Mar 2022",
       role: "Intern Developer",
       company: "Howin Cloud Pvt Ltd",
       location: "Perintalmanna, India",
       description:
-        "Contributed to backend development with Laravel and MySQL and built admin dashboards in React, including API development. Resolved production bugs around data validation and state management under senior guidance. Gained hands-on exposure to Git workflows, CI/CD, and production deployment—setting the foundation for shipping real products to real users.",
-      tech: "Laravel, MySQL, React",
+        "First production codebase. Built admin dashboards in React and the Laravel APIs behind them, and fixed real bugs around data validation and state management with senior review on every change.",
+      achievements: [
+        "Shipped admin dashboard modules alongside the APIs serving them",
+        "Learned Git workflow, CI/CD, and deployment on a live product rather than a tutorial",
+      ],
+      tech: ["Laravel", "MySQL", "React"],
     },
   ],
+
   education: [
     {
-      period: "2019 – 2022",
+      period: "2019 — 2022",
       degree: "Bachelor of Computer Applications",
       institution: "St Mary's College, Calicut University",
       location: "Puthanangadi, India",
     },
     {
-      period: "2017 – 2019",
+      period: "2017 — 2019",
       degree: "Higher Secondary, Computer Science",
       institution: "GMHSS",
       location: "Perintalmanna, India",
     },
     {
-      period: "2016 – 2017",
+      period: "2016 — 2017",
       degree: "High School",
       institution: "Presentation Higher Secondary School",
       location: "Perintalmanna, India",
     },
   ],
-  skills: [
-    { name: "React", percentage: 92, icon: "logos:react" },
-    { name: "TypeScript", percentage: 88, icon: "logos:typescript-icon" },
-    { name: "JavaScript", percentage: 90, icon: "logos:javascript" },
-    { name: "Redux Toolkit", percentage: 84, icon: "logos:redux" },
-    { name: "React Query", percentage: 82, icon: "simple-icons:reactquery" },
-    { name: "Playwright", percentage: 78, icon: "simple-icons:playwright" },
+
+  /** Grouped rather than scored — percentages on a skill are noise. */
+  skillGroups: [
+    {
+      title: "Core",
+      items: [
+        { name: "React", icon: "logos:react" },
+        { name: "TypeScript", icon: "logos:typescript-icon" },
+        { name: "JavaScript", icon: "logos:javascript" },
+        { name: "Next.js", icon: "logos:nextjs-icon" },
+      ],
+    },
+    {
+      title: "State & data",
+      items: [
+        { name: "Redux Toolkit", icon: "logos:redux" },
+        { name: "TanStack Query", icon: "logos:react-query-icon" },
+        { name: "REST APIs", icon: "lucide:webhook" },
+        { name: "React Hook Form", icon: "simple-icons:reacthookform" },
+      ],
+    },
+    {
+      title: "Styling",
+      items: [
+        { name: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
+        { name: "CSS / Sass", icon: "logos:sass" },
+        { name: "Framer Motion", icon: "logos:framer" },
+        { name: "Figma", icon: "logos:figma" },
+      ],
+    },
+    {
+      title: "Testing & tooling",
+      items: [
+        { name: "Playwright", icon: "logos:playwright" },
+        { name: "Testing Library", icon: "logos:testing-library" },
+        { name: "Vite", icon: "logos:vitejs" },
+        { name: "Git", icon: "logos:git-icon" },
+        { name: "Docker", icon: "logos:docker-icon" },
+      ],
+    },
   ],
+
+  /** Marquee strip on the home page. */
+  marqueeSkills: [
+    { label: "React", icon: "logos:react" },
+    { label: "TypeScript", icon: "logos:typescript-icon" },
+    { label: "Next.js", icon: "logos:nextjs-icon" },
+    { label: "JavaScript", icon: "logos:javascript" },
+    { label: "Redux", icon: "logos:redux" },
+    { label: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
+    { label: "Vite", icon: "logos:vitejs" },
+    { label: "Playwright", icon: "logos:playwright" },
+    { label: "Docker", icon: "logos:docker-icon" },
+    { label: "Git", icon: "logos:git-icon" },
+  ],
+
   projects: [
     {
       id: "1",
-      title: "Rental Property Maintenance Platform",
-      category: "SaaS / PropTech",
-      thumbnail: "/minimalist-phone-mockup-on-desk.jpg",
-      summary: "Helping property managers and tenants handle maintenance requests without the back-and-forth.",
-      description:
-        "Built and maintained a scalable React + TypeScript frontend with reusable UI components, REST API integration, and optimized rendering. Structured component architecture and clear state management let the team ship new features quickly. The result: a single place for maintenance workflows that scales with growing portfolios.",
-      images: ["/web-design-dashboard.jpg", "/mobile-responsive-design.png", "/web-application-interface.png"],
+      slug: "rental-maintenance-platform",
+      title: "Rental Maintenance Platform",
+      category: "SaaS · PropTech",
+      year: "2023 — Present",
+      role: "Frontend Engineer",
+      hue: 262,
+      monogram: "RM",
+      summary:
+        "Maintenance requests for property managers and tenants, without the phone-call relay in between.",
+      problem:
+        "Maintenance coordination lived in calls, texts, and spreadsheets. Nobody could answer the simplest question — what is the status of this request right now — without asking three people.",
+      approach:
+        "Built the React and TypeScript frontend around a small set of reusable primitives: a request timeline, a role-aware action bar, and list views that stay responsive as portfolios grow. State boundaries were drawn so server data and UI state never blur together, and rendering was tuned to keep long lists smooth.",
+      outcome:
+        "Managers and tenants share one view of every request. New feature areas reuse the existing primitives, so the team ships them in days rather than rebuilding each screen.",
+      highlights: [
+        "Role-aware interface serving managers, tenants, and vendors from one codebase",
+        "Virtualised list rendering that holds up as portfolios scale",
+        "Component primitives reused across every subsequent feature area",
+      ],
       technologies: [
-        { name: "Next.js", icon: "▲" },
-        { name: "TypeScript", icon: "TS" },
-        { name: "React", icon: "⚛" },
+        { name: "React", icon: "logos:react" },
+        { name: "TypeScript", icon: "logos:typescript-icon" },
+        { name: "REST APIs", icon: "lucide:webhook" },
+        { name: "Playwright", icon: "logos:playwright" },
       ],
       href: "https://lula.life/",
     },
     {
       id: "2",
-      title: "Student Academic Tracking System",
-      category: "EdTech SaaS",
-      thumbnail: "/castro-capi-design-poster-on-rock.jpg",
-      summary: "Giving educators and students real-time visibility into attendance, reports, and progress.",
-      description:
-        "Developed SaaS dashboards and modules in React, integrated secure REST APIs for attendance and report sync, and designed analytics views with reusable hooks. Clean separation of concerns and consistent UX help schools track progress and act on data faster.",
-      images: ["/mobile-app-design-screens.jpg", "/app-user-interface.jpg", "/mobile-design-mockups.jpg"],
+      slug: "student-academic-tracking",
+      title: "Student Academic Tracking",
+      category: "SaaS · EdTech",
+      year: "2023",
+      role: "Frontend Engineer",
+      hue: 200,
+      monogram: "SA",
+      summary: "Attendance, reports, and progress in one place — current, not last week's export.",
+      problem:
+        "Attendance and academic records were scattered across systems that disagreed with each other. Staff reconciled by hand, and parents saw numbers that were already stale.",
+      approach:
+        "Built the dashboard modules in React with reusable hooks wrapping each data domain, so analytics views compose from the same fetch-and-cache layer instead of duplicating it. Secure REST integration keeps attendance and report data in sync as it changes.",
+      outcome:
+        "Educators get real-time visibility into attendance and progress, and adding a new report type means writing a view rather than another sync path.",
+      highlights: [
+        "Shared data hooks that every analytics view composes from",
+        "Real-time attendance and report synchronisation",
+        "Consistent dashboard shell across every module",
+      ],
       technologies: [
-        { name: "React", icon: "⚛" },
-        { name: "JavaScript", icon: "JS" },
-        { name: "REST APIs", icon: "API" },
+        { name: "React", icon: "logos:react" },
+        { name: "JavaScript", icon: "logos:javascript" },
+        { name: "REST APIs", icon: "lucide:webhook" },
+        { name: "Redux", icon: "logos:redux" },
       ],
     },
     {
       id: "3",
+      slug: "food-delivery-app",
       title: "Food Delivery Application",
       category: "E-Commerce",
-      thumbnail: "/hand-holding-roman-design-magazine.jpg",
-      summary: "Making it easy for customers to order food and for restaurants to manage deliveries.",
-      description:
-        "Built mobile-first frontend workflows for menus, ordering, and profiles; integrated APIs for authentication, orders, and payments; and improved cross-device performance. Focus on fast, reliable flows so users can order without friction and businesses can scale delivery.",
-      images: ["/brand-identity-design.png", "/logo-design-mockups.jpg", "/diverse-branding-materials.png"],
+      year: "2022",
+      role: "Frontend Developer",
+      hue: 25,
+      monogram: "FD",
+      summary: "Menu to checkout on a phone, on a bad connection, without losing the cart.",
+      problem:
+        "Ordering happens on mid-range phones and patchy mobile data. Every extra second between menu and checkout is an abandoned order.",
+      approach:
+        "Built mobile-first flows for menus, cart, and profiles, integrated auth, orders, and payment APIs, and worked through the cross-device performance issues — image weight, re-render churn, and layout shift on slower hardware.",
+      outcome:
+        "A checkout path that holds together on the devices customers actually use, and an order pipeline restaurants can manage from the other side.",
+      highlights: [
+        "Mobile-first ordering flow from menu through payment",
+        "Authentication, order, and payment API integration",
+        "Cross-device performance work targeting mid-range hardware",
+      ],
       technologies: [
-        { name: "React", icon: "⚛" },
-        { name: "Vite", icon: "VT" },
-        { name: "REST APIs", icon: "API" },
+        { name: "React", icon: "logos:react" },
+        { name: "Vite", icon: "logos:vitejs" },
+        { name: "REST APIs", icon: "lucide:webhook" },
+        { name: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
       ],
       href: "https://grosav.com/home",
     },
     {
       id: "4",
-      title: "Alumni Association Management System",
+      slug: "alumni-association-platform",
+      title: "Alumni Association Platform",
       category: "Admin Platform",
-      thumbnail: "/hand-holding-roman-magazine-red.jpg",
-      summary: "Helping alumni associations manage members, events, and engagement in one place.",
-      description:
-        "Developed admin dashboards and management modules using Laravel, built APIs, and contributed to database design. Supported testing and deployment readiness so the association could run events and stay connected with alumni without manual overhead.",
-      images: ["/portfolio-website-design.png", "/creative-portfolio-layout.jpg", "/web-portfolio-mockup.jpg"],
+      year: "2022",
+      role: "Full-Stack Developer",
+      hue: 155,
+      monogram: "AA",
+      summary: "Members, events, and engagement for an alumni association — off spreadsheets.",
+      problem:
+        "Member records and event registration lived in spreadsheets and inboxes, so every event meant re-collecting information the association already had.",
+      approach:
+        "Built the admin dashboards and management modules in Laravel with React on the interface side, designed the APIs behind them, and contributed to the database schema. Saw it through testing and deployment readiness.",
+      outcome:
+        "One system for membership and events, with the manual reconciliation removed from the middle of it.",
+      highlights: [
+        "Membership and event management modules end to end",
+        "API design and schema contributions",
+        "Testing and deployment readiness before handoff",
+      ],
       technologies: [
-        { name: "Laravel", icon: "LV" },
-        { name: "MySQL", icon: "DB" },
-        { name: "React", icon: "⚛" },
+        { name: "Laravel", icon: "logos:laravel" },
+        { name: "MySQL", icon: "logos:mysql-icon" },
+        { name: "React", icon: "logos:react" },
+        { name: "PHP", icon: "logos:php" },
       ],
       href: "https://www.hadia.in/",
     },

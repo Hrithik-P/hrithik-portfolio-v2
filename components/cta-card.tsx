@@ -1,40 +1,42 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { ArrowUpRight, Sparkles } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
+import { siteData } from "@/lib/site-data"
 
 export function CtaCard() {
   return (
-    <Link href="/contact" className="block h-full">
-      <Card className="group relative h-full overflow-hidden border border-border/50 bg-gradient-to-br from-card via-card to-card/80 hover:border-border transition-all duration-300">
-      <CardContent className="flex flex-col justify-between p-8 h-full">
-        <div className="flex items-start justify-between mb-4">
-          <div className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-muted-foreground" />
-          </div>
-        </div>
+    <Link
+      href="/contact"
+      className="surface surface-interactive group relative flex h-full flex-col justify-between gap-8 overflow-hidden p-6 sm:p-8"
+    >
+      {/* Accent wash, kept behind the text */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-primary/15 blur-3xl transition-opacity duration-500 group-hover:opacity-70"
+      />
 
-        <div className="flex-1 flex flex-col justify-center">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight text-balance">
-            I'd love to <span className="text-primary">hear from you.</span>
-          </h2>
-          <p className="mt-3 text-muted-foreground text-base sm:text-lg">Let's build something great.</p>
-        </div>
+      <p className="eyebrow relative">{siteData.person.availability}</p>
 
-        <div className="flex justify-end">
-          <Button
-            asChild
-            variant="ghost"
-            size="icon"
-            className="rounded-full border border-border/50 w-12 h-12 hover:bg-muted hover:border-border transition-all"
-          >
-            <span aria-label="Go to contact page">
-              <ArrowUpRight className="w-5 h-5" />
-            </span>
-          </Button>
-        </div>
-      </CardContent>
-      </Card>
+      <div className="relative space-y-4">
+        <h2 className="text-4xl font-bold leading-[1.05] sm:text-5xl lg:text-6xl">
+          <span className="text-foreground">Have something</span>{" "}
+          <span className="text-gradient">worth building?</span>
+        </h2>
+        <p className="max-w-md text-pretty text-base text-muted-foreground sm:text-lg">
+          Tell me what you&rsquo;re working on and where it&rsquo;s stuck. I usually reply within a day or two.
+        </p>
+      </div>
+
+      <div className="relative flex items-center justify-between gap-4">
+        <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground">
+          Start a conversation
+        </span>
+        <span
+          aria-hidden
+          className="flex size-12 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-300 group-hover:border-primary/60 group-hover:bg-primary/10 group-hover:text-primary"
+        >
+          <ArrowUpRight className="size-5 transition-transform duration-300 group-hover:-translate-y-px group-hover:translate-x-px" />
+        </span>
+      </div>
     </Link>
   )
 }
