@@ -288,12 +288,13 @@ export const siteData = {
       problem:
         "One work order passes through four very different people — a coordinator triaging the request, a property manager tracking progress, a contractor accepting the job, a technician closing it out in the field. Same record, four jobs to be done, and the suite had grown four separate implementations of every shared UI pattern.",
       approach:
-        "Built and maintained the shared component library behind all four applications, so one design language covers the admin platform, customer portal, vendor portal, and technician app. Owned REST integration across them with typed data-fetching layers and identical loading, error, and empty states. Delivered the frontend for the AI-driven work-order platform: request triage, technician scheduling, and vendor dispatch.",
+        "Built and maintained the shared component library behind all four applications, so one design language covers the admin platform, customer portal, vendor portal, and technician app. Owned REST integration across them with typed data-fetching layers and identical loading, error, and empty states. Delivered the frontend for the AI-driven work-order platform: request triage, technician scheduling, and vendor dispatch. Alongside that, moved 12–15 legacy Laravel dashboard pages onto the same architecture — reverse-engineering years of undocumented product logic through code analysis and stakeholder interviews before rewriting any of it.",
       outcome:
-        "Shared UI improvements ship once instead of four times, and coordinators run daily dispatch through interfaces shaped around how the work actually moves rather than how the database is arranged.",
+        "Shared UI improvements ship once instead of four times, and coordinators run daily dispatch through interfaces shaped around how the work actually moves rather than how the database is arranged. Once the migrated screens became typed components, new feature work went from weeks to days.",
       highlights: [
         "Shared component library powering four production applications",
         "AI-driven triage, scheduling, and vendor dispatch interfaces",
+        "12–15 legacy Laravel pages migrated to typed React, cutting feature turnaround from weeks to days",
         "Typed REST layers with consistent loading, error, and empty states",
         "Frontend team of five within a 25-person engineering organisation",
       ],
@@ -308,35 +309,6 @@ export const siteData = {
     },
     {
       id: "2",
-      slug: "legacy-dashboard-migration",
-      title: "Legacy Dashboard Migration",
-      category: "Platform Modernisation",
-      year: "2024",
-      role: "Frontend Engineer",
-      hue: 292,
-      monogram: "LM",
-      summary: "Fifteen Laravel admin pages carrying years of undocumented logic, moved onto typed React.",
-      problem:
-        "The admin dashboard was server-rendered Laravel holding years of decisions nobody had written down. Every change started with archaeology, data-heavy views hung, and there were screens people quietly avoided using.",
-      approach:
-        "Reverse-engineered the existing behaviour before touching it — reading the code and interviewing the people who depended on it — then rebuilt each page on a modular React and TypeScript architecture. Writing the React was the easy half; the judgement was deciding which behaviour to preserve and which to drop.",
-      outcome:
-        "Page loads got faster and the hangs went away, and use of the previously avoided screens measurably increased. New feature work went from weeks to days, because it became additive rather than archaeological.",
-      highlights: [
-        "12–15 pages migrated from server-rendered Laravel to typed React",
-        "Behaviour recovered through code analysis and stakeholder interviews",
-        "Time-to-production for new features cut from weeks to days",
-        "Measurable increase in use of previously avoided screens",
-      ],
-      technologies: [
-        { name: "React", icon: "logos:react" },
-        { name: "TypeScript", icon: "logos:typescript-icon" },
-        { name: "Laravel", icon: "logos:laravel" },
-        { name: "REST APIs", icon: "lucide:webhook" },
-      ],
-    },
-    {
-      id: "3",
       slug: "class-report",
       title: "Class Report",
       category: "SaaS · EdTech",
@@ -364,7 +336,7 @@ export const siteData = {
       ],
     },
     {
-      id: "4",
+      id: "3",
       slug: "hadiya-alumni",
       title: "Hadiya Alumni Platform",
       category: "Admin Platform",
@@ -393,7 +365,7 @@ export const siteData = {
       href: "https://www.hadia.in/",
     },
     {
-      id: "5",
+      id: "4",
       slug: "grosav-commerce",
       title: "Grosav Commerce",
       category: "E-Commerce",
