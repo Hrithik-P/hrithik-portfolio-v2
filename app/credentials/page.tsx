@@ -31,7 +31,7 @@ function SectionHeading({ children }: { children: string }) {
 }
 
 export default function CredentialsPage() {
-  const { person, experience, education, skillGroups, certifications, focusAreas } = siteData
+  const { person, experience, education, skillGroups, certifications, focusAreas, languages } = siteData
 
   return (
     <>
@@ -201,6 +201,21 @@ export default function CredentialsPage() {
                       <p className="text-sm text-muted-foreground">{cert.issuer}</p>
                     </div>
                     <span className="font-mono text-xs text-muted-foreground">{cert.year}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
+            <Reveal as="section">
+              <SectionHeading>Languages</SectionHeading>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {languages.map((language) => (
+                  <li
+                    key={language.name}
+                    className="surface flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-5 py-4"
+                  >
+                    <h3 className="font-medium text-foreground">{language.name}</h3>
+                    <span className="text-sm text-muted-foreground">{language.level}</span>
                   </li>
                 ))}
               </ul>
