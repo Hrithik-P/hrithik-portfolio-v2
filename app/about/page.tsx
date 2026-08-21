@@ -12,7 +12,7 @@ import { siteData } from "@/lib/site-data"
 export const metadata: Metadata = {
   title: "About",
   description:
-    "How I think about frontend work — state boundaries, the ugly states, performance budgets, and tests worth trusting.",
+    "How I think about frontend work — reading before rewriting, shared components, every interface state, and performance as a feature.",
   alternates: { canonical: "/about" },
 }
 

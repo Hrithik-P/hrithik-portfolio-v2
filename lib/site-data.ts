@@ -51,9 +51,9 @@ export const siteData = {
     shortBio:
       "Frontend engineer with 4+ years building production web applications in React, Next.js, and TypeScript. Most of my work is on the parts that decide whether an interface stays good over time — shared component libraries, typed data layers, render performance, and tests worth trusting.",
     longBio: [
-      "I'm a frontend engineer, four years in. The thing I've become most interested in isn't any particular framework feature — it's the architecture underneath a UI. Where state lives, what a component's API quietly promises, and how much the tenth feature costs compared to the first.",
-      "Most of that I learned maintaining a shared component library behind four production applications. Building a component once is easy; building one that several teams can use without forking it teaches you what a good API actually costs. The same goes for the data layer — I own the typed REST integration across those apps, so loading, error, and empty states are defined once instead of reinvented per screen. Inconsistent failure states are how software starts to feel unreliable.",
-      "The most useful lesson came from migrating a dozen-odd legacy pages to React and TypeScript. Writing the React was never the hard part. The hard part was working out why the existing code behaved the way it did — tracing dependencies through an undocumented codebase, understanding decisions made by people who had long since left, and judging when to preserve behaviour rather than replace it.",
+      "I'm a frontend engineer, four years in. What I care about most is the architecture underneath a UI — where state lives, what a component's API actually promises, and how much the tenth feature costs compared to the first.",
+      "Most of that I learned maintaining a shared component library behind four production applications. Building a component once is easy; building one that several teams can use without forking it teaches you what a good API actually costs. The same goes for the data layer — I own the typed REST integration across those apps, so loading, error, and empty states are defined once instead of reinvented per screen. Consistent failure states are part of what makes software feel trustworthy.",
+      "The most useful lesson came from migrating a dozen-odd legacy pages to React and TypeScript. The hard part was working out why the existing code behaved the way it did — tracing dependencies through an undocumented codebase, understanding decisions made by people who had long since left, and judging when to preserve behaviour rather than replace it. Writing the React was the easy part by comparison.",
       "I came into frontend through Laravel and backend work, which still gives me a better read on the systems behind the interfaces I build. These days I also mentor two junior developers, which has made me better at explaining a decision than just making it.",
       "I'm based in Kochi and open to senior frontend roles, in India or with remote-first teams. If you're building something where the interface has to carry real weight, I'd like to hear about it.",
     ],
@@ -65,25 +65,25 @@ export const siteData = {
     {
       title: "Read before you rewrite",
       description:
-        "Unfamiliar code is a record of decisions, not a mess to clear out. Work out why it behaves that way first — that's the slow half of a migration, and the half that decides whether it works.",
+        "Unfamiliar code usually has a reason for the way it behaves. I trace that reason before touching anything — it's the slow half of a migration, and the half that decides whether it works.",
       icon: "lucide:git-branch",
     },
     {
       title: "Build it once",
       description:
-        "The same component written separately in each app drifts in each app. A shared layer is what keeps a growing product feeling like one product.",
+        "A component copied into each app drifts from itself over time. A shared layer is what keeps a growing product feeling like one product.",
       icon: "lucide:blocks",
     },
     {
-      title: "Design for the ugly states",
+      title: "Design for every state",
       description:
-        "Loading, error, and empty are most of what a real interface spends its time showing. The happy path is the easy 20% and rarely what breaks.",
+        "Loading, error, and empty make up most of what a real interface actually shows. The happy path is the easy 20% — and rarely the part that breaks.",
       icon: "lucide:layers",
     },
     {
       title: "Fast is a feature",
       description:
-        "Ship less JavaScript, render on the server where it's free, and measure on the hardware people actually use rather than a developer laptop.",
+        "Speed is unglamorous: less JavaScript shipped, more rendered on the server by default, and performance measured on the hardware people actually use — not a developer laptop.",
       icon: "lucide:activity",
     },
   ],
@@ -145,7 +145,7 @@ export const siteData = {
     {
       name: "Performance",
       description:
-        "Bundle budgets, render cost, and the page-load work that turns a screen people quietly avoid into one they actually use.",
+        "Bundle budgets, render cost, and the page-load work that turns a slow screen into one people actually use.",
       icon: "lucide:gauge",
     },
     {
@@ -167,7 +167,7 @@ export const siteData = {
       achievements: [
         "Build and maintain the shared component library behind four production apps — admin platform, customer portal, vendor portal, and technician app — so shared UI ships once instead of four times",
         "Migrated 12–15 legacy Laravel dashboard pages to typed React, recovering undocumented behaviour through code reading and stakeholder interviews before rewriting any of it",
-        "Cut page loads and removed hangs on data-heavy views; screens people had been quietly avoiding started getting used",
+        "Cut page loads and removed hangs on data-heavy views — usage went up as the screens got faster",
         "Feature turnaround went from weeks to days once those screens became typed components",
         "Built Foresight's AI work-order frontend: request triage, technician scheduling, and vendor dispatch, used daily by coordinators",
         "Own REST integration across the four apps — shaping contracts with backend engineers, and keeping loading, error, and empty states identical throughout",
