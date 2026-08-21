@@ -47,17 +47,17 @@ export const siteData = {
     username: "@Hrithik-P",
     availability: "Open to senior frontend roles — India and remote-first teams",
     heroIntro:
-      "I build the interfaces a work order passes through — from the moment a tenant reports a problem to the moment a technician closes it out.",
+      "I build production interfaces in React, Next.js, and TypeScript — and care most about what sits underneath them: component architecture, state boundaries, and the seam where UI meets API.",
     shortBio:
-      "Frontend engineer with 4+ years building production web applications in React, Next.js, and TypeScript. I work on operational software: the kind people use all day to get a job done, where the whole task is making something genuinely complex feel simple and reliable.",
+      "Frontend engineer with 4+ years building production web applications in React, Next.js, and TypeScript. Most of my work is on the parts that decide whether an interface stays good over time — shared component libraries, typed data layers, render performance, and tests worth trusting.",
     longBio: [
-      "For the past three years I've worked on the frontend team behind Lula and Foresight, a US property maintenance platform used by managers across 50+ markets. What makes it interesting is that one work order moves through four completely different people — a coordinator triaging the request, a property manager tracking progress, a contractor accepting the job, a technician finishing it in the field. Same record, four jobs to be done.",
-      "A lot of my work has been making those four applications behave like one product. I build and maintain the shared component library behind the admin platform, customer portal, vendor portal, and technician app, so a UI improvement ships across the suite instead of being reimplemented four times. I own the REST integration layer across them too — typed, with loading, error, and empty states that look the same everywhere, because inconsistent failure states are how software starts to feel unreliable.",
-      "The most useful thing I've learned came from migrating a dozen-odd legacy Laravel dashboard pages to React and TypeScript. Writing the React was never the hard part. The hard part was working out why the existing code behaved the way it did — reading an undocumented codebase archaeologically, tracing dependencies, understanding decisions made by people who'd long since left, and judging when to preserve behaviour rather than replace it.",
-      "Before Quintet I was at Howin Cloud building mobile-first client interfaces and integrating payment and authentication systems, and I started out in Laravel and backend work — which still gives me a better read on the systems sitting behind the interfaces I build. These days I also mentor two junior developers on a five-person frontend team, which has sharpened how I explain decisions rather than just make them.",
-      "I'm based in Kochi and open to senior frontend roles, in India or with remote-first teams. If you're building something where the interface has to carry real operational weight, I'd like to hear about it.",
+      "I'm a frontend engineer, four years in. The thing I've become most interested in isn't any particular framework feature — it's the architecture underneath a UI. Where state lives, what a component's API quietly promises, and how much the tenth feature costs compared to the first.",
+      "Most of that I learned maintaining a shared component library behind four production applications. Building a component once is easy; building one that several teams can use without forking it teaches you what a good API actually costs. The same goes for the data layer — I own the typed REST integration across those apps, so loading, error, and empty states are defined once instead of reinvented per screen. Inconsistent failure states are how software starts to feel unreliable.",
+      "The most useful lesson came from migrating a dozen-odd legacy pages to React and TypeScript. Writing the React was never the hard part. The hard part was working out why the existing code behaved the way it did — tracing dependencies through an undocumented codebase, understanding decisions made by people who had long since left, and judging when to preserve behaviour rather than replace it.",
+      "I came into frontend through Laravel and backend work, which still gives me a better read on the systems behind the interfaces I build. These days I also mentor two junior developers, which has made me better at explaining a decision than just making it.",
+      "I'm based in Kochi and open to senior frontend roles, in India or with remote-first teams. If you're building something where the interface has to carry real weight, I'd like to hear about it.",
     ],
-    tagline: "Frontend engineer building operational software in React, Next.js, and TypeScript.",
+    tagline: "Frontend engineer building production interfaces in React, Next.js, and TypeScript.",
   },
 
   /** How I work — used on the home bento and the about page. */
@@ -65,26 +65,26 @@ export const siteData = {
     {
       title: "Read before you rewrite",
       description:
-        "Undocumented code is a record of decisions, not a mess to clear. Trace why it behaves that way first, then decide what deserves to survive.",
+        "Unfamiliar code is a record of decisions, not a mess to clear out. Work out why it behaves that way first — that's the slow half of a migration, and the half that decides whether it works.",
       icon: "lucide:git-branch",
     },
     {
-      title: "One pattern, not four",
+      title: "Build it once",
       description:
-        "When the same UI exists in four apps, it drifts in four directions. A shared component layer is what keeps a product suite feeling like one product.",
-      icon: "lucide:component",
+        "The same component written separately in each app drifts in each app. A shared layer is what keeps a growing product feeling like one product.",
+      icon: "lucide:blocks",
     },
     {
       title: "Design for the ugly states",
       description:
-        "Loading, error, and empty are most of what operational software actually shows. Inconsistent failure states are how a product starts to feel unreliable.",
+        "Loading, error, and empty are most of what a real interface spends its time showing. The happy path is the easy 20% and rarely what breaks.",
       icon: "lucide:layers",
     },
     {
-      title: "Make complex feel simple",
+      title: "Fast is a feature",
       description:
-        "Operational tools are dense by nature. The work is absorbing that complexity into the architecture so it never reaches the person using it.",
-      icon: "lucide:gauge",
+        "Ship less JavaScript, render on the server where it's free, and measure on the hardware people actually use rather than a developer laptop.",
+      icon: "lucide:activity",
     },
   ],
 
@@ -105,7 +105,7 @@ export const siteData = {
     "Real-time interfaces (WebSocket / Pusher)",
     "State architecture at scale",
     "Test-driven UI & cross-browser QA",
-    "Mentoring & code review",
+    "Mentoring",
   ],
 
   social: {
@@ -131,28 +131,28 @@ export const siteData = {
    */
   services: [
     {
-      name: "Component systems",
+      name: "Component architecture",
       description:
-        "The part I've spent most time on: one shared library behind four applications, so a change lands everywhere instead of four times.",
+        "Shared libraries, design tokens, and component APIs that hold up when more than one team is building on them.",
       icon: "lucide:component",
     },
     {
-      name: "State & data flow",
+      name: "State & data layer",
       description:
-        "Where state lives, where the network edge sits, and what a typed fetching layer should hand a component. Most UI pain starts here.",
-      icon: "lucide:blocks",
+        "Where state lives, and what a typed fetching layer hands a component — with loading, error, and empty states defined once rather than per screen.",
+      icon: "lucide:webhook",
     },
     {
-      name: "Untangling old code",
+      name: "Performance",
       description:
-        "Working out why a system behaves the way it does before changing it — the slow half of every migration, and the half that decides whether it works.",
-      icon: "lucide:git-branch",
+        "Bundle budgets, render cost, and the page-load work that turns a screen people quietly avoid into one they actually use.",
+      icon: "lucide:gauge",
     },
     {
-      name: "Dense operational UI",
+      name: "Testing & quality",
       description:
-        "Scheduling, dispatch, work queues. Screens with a lot on them that still have to feel calm to someone using them all day.",
-      icon: "lucide:activity",
+        "React Testing Library, Playwright, and Vitest, plus cross-browser checks — coverage that mirrors real use, so refactoring stays routine.",
+      icon: "lucide:shield-check",
     },
   ],
 
