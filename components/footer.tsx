@@ -1,47 +1,73 @@
 import Link from "next/link"
-import { siteData } from "@/lib/site-data"
+import { Github, Linkedin, Mail } from "lucide-react"
+import { Container } from "@/components/ui/container"
+import { Logo } from "@/components/logo"
+import { navItems, siteData } from "@/lib/site-data"
+
+const socials = [
+  { label: "GitHub", href: siteData.social.github, Icon: Github, external: true },
+  { label: "LinkedIn", href: siteData.social.linkedin, Icon: Linkedin, external: true },
+  { label: "Email", href: `mailto:${siteData.person.email}`, Icon: Mail, external: false },
+]
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-border/40 bg-background py-12 mt-24">
-      <div className="mx-auto max-w-[1140px] px-4 md:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-8">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-foreground">{siteData.person.name}</span>
-          </Link>
+    <footer className="mt-20 w-full border-t border-border/60 sm:mt-28">
+      <Container className="py-12 sm:py-16">
+        <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+            <div className="max-w-sm space-y-3">
+              <Logo />
+              <p className="text-sm leading-relaxed text-muted-foreground">{siteData.person.tagline}</p>
+            </div>
 
-          {/* Navigation Links */}
-          <nav className="flex flex-wrap items-center justify-center gap-8">
-            <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-              HOME
-            </Link>
-            <Link
-              href="/about"
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              ABOUT
-            </Link>
-            <Link
-              href="/works"
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              WORKS
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              CONTACT
-            </Link>
-          </nav>
+            <div className="flex gap-12 sm:gap-16">
+              <nav aria-label="Footer">
+                <h2 className="eyebrow mb-4">Pages</h2>
+                <ul className="space-y-2.5">
+                  {[...navItems, { href: "/contact", label: "Contact" }].map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
 
-          {/* Copyright */}
-          <p className="text-sm text-muted-foreground">
-            Crafted with care · © {new Date().getFullYear()} {siteData.person.name}
-          </p>
+              <div>
+                <h2 className="eyebrow mb-4">Elsewhere</h2>
+                <ul className="space-y-2.5">
+                  {socials.map(({ label, href, Icon, external }) => (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+                        className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        <Icon className="size-3.5" aria-hidden />
+                        {label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center justify-between gap-3 border-t border-border/60 pt-8 sm:flex-row">
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} {siteData.person.fullName}
+            </p>
+            <p className="font-mono text-xs text-muted-foreground">
+              Built with Next.js, TypeScript &amp; Tailwind
+            </p>
+          </div>
         </div>
-      </div>
+      </Container>
     </footer>
   )
 }

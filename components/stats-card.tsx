@@ -1,42 +1,28 @@
-import { Card, CardContent } from "@/components/ui/card"
 import { siteData } from "@/lib/site-data"
 
 export function StatsCard() {
   return (
-    <Card className="h-full overflow-hidden border border-border/50 bg-gradient-to-br from-card via-card to-card/80">
-      <CardContent className="p-8 h-full flex items-center justify-center">
-        <div className="flex items-center justify-around w-full gap-4">
-          <div className="flex flex-col items-center justify-center gap-3">
-            <div className="text-5xl md:text-6xl font-bold text-foreground">{siteData.stats.yearsExperience}+</div>
-            <div className="flex flex-col items-center text-center">
-              <p className="text-xs font-medium text-muted-foreground tracking-wider uppercase leading-tight">Years of</p>
-              <p className="text-xs font-medium text-muted-foreground tracking-wider uppercase leading-tight">
-                craft
-              </p>
-            </div>
+    <div className="surface flex h-full items-center p-6 sm:p-8">
+      <dl className="grid w-full grid-cols-3 gap-2 sm:gap-4">
+        {siteData.stats.map((stat, index) => (
+          <div
+            key={stat.label}
+            className={
+              index > 0
+                ? "flex flex-col items-center gap-2 border-l border-border text-center"
+                : "flex flex-col items-center gap-2 text-center"
+            }
+          >
+            <dd className="text-4xl font-bold tabular-nums text-foreground sm:text-5xl">{stat.value}</dd>
+            <dt className="space-y-0.5">
+              <span className="block text-xs font-medium uppercase tracking-[0.1em] text-foreground/80">
+                {stat.label}
+              </span>
+              <span className="block text-[0.6875rem] leading-tight text-muted-foreground">{stat.detail}</span>
+            </dt>
           </div>
-
-          <div className="flex flex-col items-center justify-center gap-3">
-            <div className="text-5xl md:text-6xl font-bold text-foreground">{siteData.stats.clientsWorldwide}</div>
-            <div className="flex flex-col items-center text-center">
-              <p className="text-xs font-medium text-muted-foreground tracking-wider uppercase leading-tight">Teams</p>
-              <p className="text-xs font-medium text-muted-foreground tracking-wider uppercase leading-tight">
-                I've joined
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center justify-center gap-3">
-            <div className="text-5xl md:text-6xl font-bold text-foreground">{siteData.stats.totalProjects}</div>
-            <div className="flex flex-col items-center text-center">
-              <p className="text-xs font-medium text-muted-foreground tracking-wider uppercase leading-tight">Projects</p>
-              <p className="text-xs font-medium text-muted-foreground tracking-wider uppercase leading-tight">
-                shipped
-              </p>
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        ))}
+      </dl>
+    </div>
   )
 }

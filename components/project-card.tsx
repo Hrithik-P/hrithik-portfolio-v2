@@ -1,54 +1,53 @@
 "use client"
 
-import { motion } from "framer-motion"
-import Image from "next/image"
+import { Plus } from "lucide-react"
+import { ProjectCover } from "@/components/project-cover"
 import type { PortfolioProject } from "@/lib/site-data"
 
 interface ProjectCardProps {
   project: PortfolioProject
-  index: number
-  onClick: () => void
+  onSelect: () => void
 }
 
-export function ProjectCard({ project, index, onClick }: ProjectCardProps) {
+/**
+ * A real <button>, not a div with onClick.
+ *
+ * The previous version put the handler on a motion.div with no role, tabIndex,
+ * or key handling, which made every project unreachable by keyboard.
+ */
+export function ProjectCard({ project, onSelect }: ProjectCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      onClick={onClick}
-      className="group relative bg-card border border-border/40 rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-haspopup="dialog"
+      className="surface surface-interactive group flex h-full w-full flex-col overflow-hidden p-0 text-left"
     >
-      {/* Image Container */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-        <Image
-          src={project.thumbnail || "/placeholder.svg"}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
-      </div>
+      <ProjectCover project={project} className="aspect-[4/3] w-full" />
 
-      {/* Content */}
-      <div className="p-6 relative">
-        <p className="text-xs font-medium text-muted-foreground mb-2 tracking-wider uppercase">{project.category}</p>
-        <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+      <div className="flex flex-1 flex-col gap-2 p-5 sm:p-6">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <span className="font-mono uppercase tracking-[0.1em]">{project.category}</span>
+          <span aria-hidden>·</span>
+          <span>{project.year}</span>
+        </div>
+
+        <h3 className="text-xl font-semibold text-foreground transition-colors group-hover:text-primary sm:text-2xl">
           {project.title}
         </h3>
 
-        {/* Plus Icon */}
-        <motion.div
-          whileHover={{ rotate: 90, scale: 1.1 }}
-          transition={{ duration: 0.3 }}
-          className="absolute bottom-6 right-6 w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground group-hover:border-primary group-hover:text-primary transition-colors"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 1V15M1 8H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </motion.div>
+        <p className="text-pretty text-sm leading-relaxed text-muted-foreground">{project.summary}</p>
+
+        <div className="mt-auto flex items-center justify-between gap-4 pt-4">
+          <span className="text-xs font-medium text-muted-foreground">Read case study</span>
+          <span
+            aria-hidden
+            className="flex size-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-all duration-300 group-hover:rotate-90 group-hover:border-primary/60 group-hover:bg-primary/10 group-hover:text-primary"
+          >
+            <Plus className="size-4" />
+          </span>
+        </div>
       </div>
-    </motion.div>
+    </button>
   )
 }

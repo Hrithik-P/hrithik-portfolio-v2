@@ -1,137 +1,193 @@
 "use client"
 
-import { useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+import { useEffect, useId, useRef, useState, type ReactNode } from "react"
 import { ArrowUpRight, X } from "lucide-react"
+import { ProjectCover } from "@/components/project-cover"
 import type { PortfolioProject } from "@/lib/site-data"
 
 interface ProjectModalProps {
   project: PortfolioProject | null
   onClose: () => void
+  /**
+   * Icons rendered on the server and handed across the RSC boundary, so the
+   * generated icon map never enters the client bundle.
+   */
+  techIcons: Record<string, ReactNode>
 }
 
-export function ProjectModal({ project, onClose }: ProjectModalProps) {
-  // Close modal on escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose()
-    }
-    window.addEventListener("keydown", handleEscape)
-    return () => window.removeEventListener("keydown", handleEscape)
-  }, [onClose])
+/**
+ * Built on the native <dialog> element.
+ *
+ * `showModal()` provides focus trapping, focus restore, Escape-to-close, an
+ * inert background, and top-layer stacking — all of which the previous
+ * hand-rolled overlay lacked. Enter/exit animation is CSS (see globals.css),
+ * so no animation library is involved.
+ */
+export function ProjectModal({ project, onClose, techIcons }: ProjectModalProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const titleId = useId()
+  const descriptionId = useId()
 
-  // Prevent body scroll when modal is open
+  // Keep showing the last project while the close transition plays.
+  const [lastProject, setLastProject] = useState(project)
+  if (project && project !== lastProject) {
+    setLastProject(project)
+  }
+  const shown = project ?? lastProject
+
   useEffect(() => {
-    if (project) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
-    return () => {
-      document.body.style.overflow = "unset"
+    const dialog = dialogRef.current
+    if (!dialog) return
+
+    if (project && !dialog.open) {
+      dialog.showModal()
+    } else if (!project && dialog.open) {
+      dialog.close()
     }
   }, [project])
 
+  /**
+   * Escape fires the cancelable `cancel` event before the browser closes the
+   * dialog itself. Preventing that and routing through onClose keeps React the
+   * single source of truth; letting the browser close it directly would leave
+   * state saying "open", stranding the scroll lock and needing two clicks to
+   * reopen. The keydown listener is a fallback for the same path.
+   */
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return
+
+    const handleCancel = (event: Event) => {
+      event.preventDefault()
+      onClose()
+    }
+
+    // Fallback for the same reason, in case `cancel` doesn't reach us.
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault()
+        onClose()
+      }
+    }
+
+    dialog.addEventListener("cancel", handleCancel)
+    dialog.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      dialog.removeEventListener("cancel", handleCancel)
+      dialog.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [onClose])
+
+  // The dialog is in the top layer, but the page behind it still scrolls.
+  useEffect(() => {
+    if (!project) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [project])
+
+  if (!shown) return null
+
   return (
-    <AnimatePresence>
-      {project && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+    <dialog
+      ref={dialogRef}
+      aria-labelledby={titleId}
+      aria-describedby={descriptionId}
+      onClick={(event) => {
+        // Clicks land on the dialog itself only when they hit the backdrop.
+        if (event.target === dialogRef.current) onClose()
+      }}
+      className="project-dialog surface w-[min(48rem,calc(100vw-1.5rem))] overflow-hidden p-0"
+    >
+      <div className="relative">
+        <ProjectCover project={shown} className="h-40 w-full sm:h-56" />
+
+        <button
+          type="button"
           onClick={onClose}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-background/95 backdrop-blur-md"
+          aria-label="Close case study"
+          className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
         >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-card border border-border/40 rounded-2xl sm:rounded-3xl shadow-2xl"
-          >
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="sticky top-3 sm:top-4 right-3 sm:right-4 ml-auto flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-muted/80 backdrop-blur-sm border border-border/40 text-muted-foreground hover:text-foreground hover:bg-muted transition-all z-10 float-right mr-3 sm:mr-4"
-              aria-label="Close modal"
+          <X className="size-5" />
+        </button>
+      </div>
+
+      <div className="max-h-[calc(90vh-10rem)] space-y-8 overflow-y-auto p-5 sm:max-h-[calc(90vh-14rem)] sm:p-8 md:p-10">
+        <header className="space-y-4">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+            <span className="font-mono uppercase tracking-[0.1em]">{shown.category}</span>
+            <span aria-hidden>·</span>
+            <span>{shown.year}</span>
+            <span aria-hidden>·</span>
+            <span>{shown.role}</span>
+          </div>
+
+          <h2 id={titleId} className="text-2xl font-bold text-foreground sm:text-4xl">
+            {shown.title}
+          </h2>
+
+          <p id={descriptionId} className="text-pretty text-base text-muted-foreground sm:text-lg">
+            {shown.summary}
+          </p>
+
+          {shown.href && (
+            <a
+              href={shown.href}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
             >
-              <X size={18} className="sm:w-5 sm:h-5" />
-            </button>
+              Visit live site
+              <ArrowUpRight className="size-4" aria-hidden />
+            </a>
+          )}
+        </header>
 
-            <div className="p-4 sm:p-6 md:p-8 lg:p-12 clear-both">
-              {/* Header */}
-              <div className="mb-6 sm:mb-8">
-                <p className="text-xs font-medium text-muted-foreground mb-2 tracking-wider uppercase">
-                  {project.category}
-                </p>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4">
-                  {project.title}
-                </h2>
-                <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
-                  {project.description}
-                </p>
-                {project.href && (
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
-                  >
-                    Visit Project
-                    <ArrowUpRight size={16} />
-                  </a>
-                )}
-              </div>
+        <div className="grid gap-5 sm:grid-cols-3">
+          {(
+            [
+              ["The problem", shown.problem],
+              ["What I built", shown.approach],
+              ["Outcome", shown.outcome],
+            ] as const
+          ).map(([heading, body]) => (
+            <section key={heading} className="space-y-2">
+              <h3 className="eyebrow">{heading}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{body}</p>
+            </section>
+          ))}
+        </div>
 
-              {/* Images Grid */}
-              <div className="mb-6 sm:mb-8 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                {project.images.map((image, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className={`relative rounded-2xl overflow-hidden bg-muted ${
-                      index === 0 ? "md:col-span-2 aspect-video" : "aspect-square"
-                    }`}
-                  >
-                    <Image
-                      src={image || "/placeholder.svg"}
-                      alt={`${project.title} preview ${index + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </motion.div>
-                ))}
-              </div>
+        <section className="space-y-3">
+          <h3 className="eyebrow">Highlights</h3>
+          <ul className="space-y-2">
+            {shown.highlights.map((highlight) => (
+              <li key={highlight} className="flex gap-3 text-sm text-muted-foreground">
+                <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
+                {highlight}
+              </li>
+            ))}
+          </ul>
+        </section>
 
-              {/* Technologies */}
-              <div>
-                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-3 sm:mb-4 flex items-center gap-2">
-                  <span className="text-primary">✦</span>
-                  Tools & Technologies
-                </h3>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {project.technologies.map((tech, index) => (
-                    <motion.div
-                      key={tech.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.3 + index * 0.05 }}
-                      className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-muted/50 border border-border/40 rounded-full text-xs sm:text-sm font-medium text-foreground hover:border-primary/50 hover:bg-muted transition-all"
-                    >
-                      <span className="text-base sm:text-lg">{tech.icon}</span>
-                      <span>{tech.name}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        <section className="space-y-3">
+          <h3 className="eyebrow">Stack</h3>
+          <ul className="flex flex-wrap gap-2">
+            {shown.technologies.map((tech) => (
+              <li
+                key={tech.name}
+                className="flex items-center gap-2 rounded-full border border-border bg-background/60 py-1.5 pl-2.5 pr-3.5 text-sm font-medium text-foreground"
+              >
+                {techIcons[tech.icon]}
+                {tech.name}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </dialog>
   )
 }
