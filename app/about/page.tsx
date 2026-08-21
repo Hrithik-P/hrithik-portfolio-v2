@@ -27,7 +27,7 @@ export default function AboutPage() {
         {/* Intro */}
         <section className="grid items-center gap-8 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-14">
           <Reveal>
-            <div className="relative">
+            <div className="relative sm:mx-auto sm:max-w-sm lg:mx-0 lg:max-w-none">
               <div
                 aria-hidden
                 className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-primary/20 to-accent/15 blur-2xl"
@@ -38,7 +38,7 @@ export default function AboutPage() {
                   alt={`Portrait of ${person.fullName}`}
                   fill
                   className="object-cover object-top"
-                  sizes="(max-width: 1024px) 100vw, 420px"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 384px, 420px"
                   priority
                 />
               </div>
