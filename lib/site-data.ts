@@ -42,8 +42,7 @@ export const siteData = {
     role: "Frontend Engineer",
     roleLong: "Frontend Engineer · React, Next.js & TypeScript",
     location: "Kochi, India",
-    email: "hrithik00g@gmail.com",
-    phone: "+91 9061006921",
+    email: "mrhrithikp@gmail.com",
     username: "@Hrithik-P",
     availability: "Open to senior frontend roles — India and remote-first teams",
     heroIntro:

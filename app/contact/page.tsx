@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const details = [
   { label: "Email", value: siteData.person.email, href: `mailto:${siteData.person.email}`, Icon: Mail },
-  { label: "Phone", value: siteData.person.phone, href: `tel:${siteData.person.phone.replace(/\s/g, "")}`, Icon: Phone },
+  // { label: "Phone", value: siteData.person.phone, href: `tel:${siteData.person.phone.replace(/\s/g, "")}`, Icon: Phone },
   { label: "Based in", value: siteData.person.location, href: null, Icon: MapPin },
 ]
 
